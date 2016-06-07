@@ -1,5 +1,8 @@
 %h1
 	wow this is cool!
+	%form{:method => 'post', :action => "/search/"}
+		%input{:type => 'text', :name => "search"}
+		%button{:type => 'submit'}= "search"
 - albums.each do |album|
 	%code= album.inspect
 	%a{:href => album["external_urls"]["spotify"]}
