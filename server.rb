@@ -1,7 +1,12 @@
 require 'sinatra'
 require 'spotify-client'
+require './services/getartistid'
 
+Find =  Find.new
 SpotifyClient = Spotify::Client.new
+
+puts 
+
 
 set :haml, :format => :html5
 
@@ -12,8 +17,8 @@ end
 
 
 post '/search/' do
-	puts params['search']
-	relatedartists = SpotifyClient.related_artists("15iVAtD3s3FsQR4w1v6M0P")
+	foundartist = Find.findartistid(params['search'])
+	relatedartists = SpotifyClient.related_artists(foundartist[0].id)
 	puts relatedartists
 	haml :search, :locals => {:albums => relatedartists["artists"]}
 end
